@@ -1,20 +1,10 @@
 #include <KPMIS.h>
 KPMIS robot;
 void setup() {
-  initMotors();
-  robot.move(100, 0, 1000);  //крутить левым колесом вперёд 1000 миллисекунд
-
-  //если крутится не левое колесо, а правое - выполнить реверс робота.
-  // reverse();
-
-  /* если колесо крутится не в ту сторону делаем реверс мотора.
-  0 - левый мотор, 1 - правый*/
-  // reverseMotorNumber(0);
-
-  robot.move(100,100);                // включаем двигатели
-  while(not digitalRead(34)){}        //ждём нажатия на кнопку 34
-  robot.stop();                       // остановка двигателей
-  robot.move(-100,-100,1000);         // скорость может быть отрицательной
+  robot.initMotors();
+  robot.reverse();
+  robot.reverseLeftMotor();
+  robot.move(120, 80, 1000); 
 }
 
 void loop() {
