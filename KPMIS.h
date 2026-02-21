@@ -4,7 +4,7 @@
 class KPMIS {
 public:
   KPMIS() {
-	  for (int i = 0; i < 6; i++) pinMode(led[i], OUTPUT);
+    for (int i = 0; i < 6; i++) pinMode(led[i], OUTPUT);
   }
   void initMotors() {
     pinMode(motor[0][0], OUTPUT);
@@ -13,7 +13,6 @@ public:
     pinMode(motor[0][1], OUTPUT);
     digitalWrite(motor[0][0], motor[0][2]);
     digitalWrite(motor[1][0], motor[1][2]);
-	
   }
   void reverse() {
     for (int i = 0; i < 3; i++) {
@@ -29,14 +28,14 @@ public:
     motor[motorNumber][2] = not motor[motorNumber][2];
     digitalWrite(motor[motorNumber][0], motor[motorNumber][2]);
   }
-  
+
   void reverseLeftMotor() {
     reverseMotorNumber(0);
   }
   void reverseRightMotor() {
     reverseMotorNumber(1);
   }
-  
+
   void stop() {
     digitalWrite(motor[0][1], 0);
     digitalWrite(motor[1][1], 0);
@@ -59,13 +58,26 @@ public:
     stop();
   }
 
-  bool readButton(byte buttonNumber) {
-	int num = buttonNumber - 1;
-    buttonNumber = constrain(num, 0, 5);
-    return digitalRead(button[num]);
+  byte readButtons() {
+    for (int num = 0; num < 6; num++) {
+      if (digitalRead(button[num])) return num + 1;
+    }
+    return 0;
   }
-  void waitButtonNumber(byte buttonNumber){
-	  while (not readButton(buttonNumber)){}
+  bool readButton(byte buttonNumber) {
+    buttonNumber = constrain(buttonNumber, 0, 5);
+    return digitalRead(button[buttonNumber - 1]);
+  }
+  void waitButtons() {
+    bool flag = true;
+    while (flag) {
+      for (int num = 0; num < 6; num++) {
+        if (digitalRead(button[num])) flag = false;
+      }
+    }
+  }
+  void waitButton(byte buttonNumber) {
+    while (not readButton(buttonNumber)) {}
   }
 
   int readPot(byte potNumber) {
@@ -74,17 +86,17 @@ public:
   }
 
   void ledValue(byte ledNumber, bool state) {
-	int num = ledNumber - 1;
-    digitalWrite(led[num], state);
+    ledNumber = constrain(ledNumber, 0, 5);
+    digitalWrite(led[ledNumber - 1], state);
   }
-  
+
 private:
   byte motor[2][3] = {
     { 45, 44, 0 },  // 0
     { 47, 46, 0 }   // 1
   };
 
-  byte button[6] = {35, 34, 33, 32, 31, 30 };
-  byte led[6] = {22, 23, 24, 25, 26, 27 };
+  byte button[6] = { 35, 34, 33, 32, 31, 30 };
+  byte led[6] = { 22, 23, 24, 25, 26, 27 };
   byte pot[6] = { A10, A11, A12, A13, A14, A15 };
 };
