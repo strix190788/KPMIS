@@ -58,6 +58,16 @@ public:
     stop();
   }
 
+  void pMove(int error, int pwr, float kp){
+    int Psost = error * kp;
+    bot.move(pwr - Psost, pwr + Psost);
+  }
+  void pMove(int error, int pwr, float kp, int millsec){
+    pMove(error, pwr, kp);
+    delay(millsec);
+    stop();
+  }
+
   byte readButtons() {
     for (int num = 0; num < 6; num++) {
       if (digitalRead(button[num])) return num + 1;
