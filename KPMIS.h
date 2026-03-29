@@ -60,7 +60,7 @@ public:
 
   void pMove(int error, int pwr, float kp){
     int Psost = error * kp;
-    bot.move(pwr - Psost, pwr + Psost);
+    move(pwr - Psost, pwr + Psost);
   }
   void pMove(int error, int pwr, float kp, int millsec){
     pMove(error, pwr, kp);
