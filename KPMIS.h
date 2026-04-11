@@ -21,10 +21,15 @@ public:
     digitalWrite(_rightDirPin, _rightDir);
   }
   void reverse() {
-    _leftDirPin = 47;
-    _rightDirPin = 45;
-    _leftPWMPin = 46;
-    _rightPWMPin = 44;
+    int a = _leftDirPin;
+    _leftDirPin = _rightDirPin;
+    _rightDirPin = a;
+    a = _leftPWMPin
+    _leftPWMPin = _rightPWMPin;
+    _rightPWMPin = _leftPWMPin;
+    a = _leftDir;
+    _leftDir = _rightDir;
+    _rightDir = a;
     reverseLeftMotor();
     reverseRightMotor();
   }
