@@ -21,13 +21,19 @@ public:
     digitalWrite(_rightDirPin, _rightDir);
   }
   void reverse() {
-    int a = _leftDirPin;
-    _leftDirPin = _rightDirPin;
-    _rightDirPin = a;
-    a = _leftPWMPin
-    _leftPWMPin = _rightPWMPin;
-    _rightPWMPin = _leftPWMPin;
-    a = _leftDir;
+    if (_leftDirPin == 45) _leftDirPin = 47;
+    else _leftDirPin = 45;
+
+    if (_rightDirPin == 45) _rightDirPin = 47;
+    else _rightDirPin = 45;
+
+    if (_leftPWMPin == 44) _leftPWMPin = 46;
+    else _leftPWMPin = 44;
+
+    if (_rightPWMPin == 44) _rightPWMPin = 46;
+    else _rightPWMPin = 44;
+
+    int a = _leftDir;
     _leftDir = _rightDir;
     _rightDir = a;
     reverseLeftMotor();
